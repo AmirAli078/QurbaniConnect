@@ -1,0 +1,15 @@
+# Integration tests use Testcontainers MySQL 8.0 (datasource injected by @ServiceConnection).
+spring:
+  jpa:
+    show-sql: false
+app:
+  jwt:
+    secret: test-secret-test-secret-test-secret-test-secret-1234567890
+  admin-seed:
+    enabled: true
+    email: admin@test.local
+    password: Admin@12345
+  storage:
+    base-dir: ./target/test-storage
+  password-reset:
+    log-token: true

@@ -1,0 +1,44 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: qurbaniconnect
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:qurbaniconnect_db}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate          # schema is owned by Flyway, never by Hibernate
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-expiration-ms: ${JWT_EXPIRATION:86400000}
+    refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION:604800000}
+  admin-seed:
+    enabled: ${ADMIN_SEED_ENABLED:true}
+    email: ${ADMIN_EMAIL:}
+    password: ${ADMIN_PASSWORD:}
+    phone: ${ADMIN_PHONE:03000000000}
+    full-name: ${ADMIN_NAME:System Administrator}
+  storage:
+    base-dir: ${STORAGE_DIR:./storage}      # outside any static resource path
+  password-reset:
+    expiry-minutes: 30
+    log-token: ${LOG_RESET_TOKEN:false}     # dev only: no email provider in phase 1
+management:
+  endpoints.web.exposure.include: health,info
+springdoc:
+  swagger-ui.path: /swagger-ui/index.html

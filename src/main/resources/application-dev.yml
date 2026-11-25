@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    show-sql: false
+logging:
+  level:
+    com.qurbaniconnect: DEBUG
+app:
+  password-reset:
+    log-token: true
